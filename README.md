@@ -1,6 +1,13 @@
 # Fast-Paced-Unreal-FPS
  DOOM 2016/DOOM Eternal inspired game made in Unreal Engine 5.4.4
 
+# Code Style/Developer Workflow
+ I took heavy inspiration from Valve's code style. This means Consistency, Readability, and Structured Commenting can
+ be found all throughout my code!
+ I also have a few preferences like avoiding the use of the "auto" keyword within my code. I do this because I feel
+ like auto obscures the context of certain variables, which may make it difficult for other developers to work with 
+ my code.
+
 # Project History/Context
  This project was made for my High-school Capstone Project. I started working on it on October 1st, but then ended up having
  to restart development on November 5th due to a project corruption. This project should hopefully be finished by December 10, which means
