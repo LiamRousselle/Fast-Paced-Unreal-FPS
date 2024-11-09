@@ -75,3 +75,7 @@ DerivedDataCache/*
 
 # Default Engine
 Config/DefaultEngine.ini
+
+# Jupiter SciFi kit
+Content/JUPITER_SciFi_Kit/*
+JUPITER_SciFi_Kit.png
