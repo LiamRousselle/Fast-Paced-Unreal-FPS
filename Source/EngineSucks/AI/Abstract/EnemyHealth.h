@@ -8,6 +8,7 @@
 
 #define ENEMY_HEALTH_TICK_RATE					float(0.1)
 
+class AGloryKillFacade;
 class ACharacterController;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
@@ -25,6 +26,9 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Health")
 	float DelayBeforeRegen = 1.5f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	TSubclassOf<AGloryKillFacade> GloryKillFacadeReference;
 	
 public:
 	float RegenHealth = MaxHealth;

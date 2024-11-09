@@ -5,6 +5,7 @@
 
 #include "EngineSucks/AI/Abstract/EnemyHealth.h"
 #include "EngineSucks/Gameplay/Player/CharacterController.h"
+#include "EngineSucks/Gameplay/Player/Camera/Viewmodel.h"
 #include "Kismet/GameplayStatics.h"
 
 UShotgun::UShotgun() {
@@ -37,6 +38,19 @@ void UShotgun::BeginPlay() {
 
 	// Get the ACharacterController actor which owns this component
 	LocalCharacterController = GetLocalCharacterController();
+
+	// Create the shotgun viewmodel
+	UWorld* world = GetWorld();
+	if ( IsValid(ShotgunViewmodelReference.Get()) && IsValid(world) ) {
+		ShotgunViewmodel = NewObject<AViewmodel>(world, ShotgunViewmodelReference.Get());
+		if ( IsValid(ShotgunViewmodel) ) {
+			ShotgunViewmodel->Show();
+			UE_LOG(LogTemp, Log, TEXT("Created shotgun viewmodel successfully"));
+		}
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Failed to create AViewmodel for shotgun."));
+	}
 }
 
 void UShotgun::CastSingleBullet(UWorld* world, FVector& origin, FVector& direction) {
