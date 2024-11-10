@@ -5,7 +5,22 @@
 #include "EnemyHealth.h"
 
 ABaseEnemy::ABaseEnemy() {
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 	Health = CreateDefaultSubobject<UEnemyHealth>("EnemyHealth");
+}
+
+void ABaseEnemy::BeginPlay() {
+	Super::BeginPlay();
+
+	UWorld* world = GetWorld();
+	if ( IsValid(world) ) {
+		world->GetTimerManager().SetTimer(
+			ThrottledTickTimer,
+			this,
+			&ABaseEnemy::ThrottledTick,
+			k_ThrottledTickRate,
+			true
+		);
+	}
 }
