@@ -11,10 +11,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c908f06f-cbf8-4dca-b662-17f80e32af94" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyAIController.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyAIController.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/EngineSucks.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/EngineSucks.Build.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -450,7 +455,7 @@
       <workItem from="1731115731480" duration="1494000" />
       <workItem from="1731121048042" duration="1013000" />
       <workItem from="1731192974001" duration="2050000" />
-      <workItem from="1731265238412" duration="871000" />
+      <workItem from="1731265238412" duration="2718000" />
     </task>
     <task id="LOCAL-00001" summary="Pray nothing breaks">
       <option name="closed" value="true" />

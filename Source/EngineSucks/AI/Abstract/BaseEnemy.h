@@ -6,10 +6,11 @@
 #include "GameFramework/Character.h"
 #include "BaseEnemy.generated.h"
 
+class AEnemyAIController;
+class UEnemyHealth;
+
 // How often the throttled tick function is fired
 const float k_ThrottledTickRate = 1.f/10.f;
-
-class UEnemyHealth;
 
 UCLASS()
 class ENGINESUCKS_API ABaseEnemy : public ACharacter {
@@ -22,11 +23,17 @@ public:
 	UEnemyHealth* Health;
 
 protected:
+	AEnemyAIController* GetAIController();
+	
 	virtual void BeginPlay() override;
-	virtual void ThrottledTick() {
-		UE_LOG(LogTemp, Log, TEXT("Ticked!"));
-	}
+	virtual void ThrottledTick() {}
+
+	virtual void MoveTo(
+		FVector location
+		
+	);
 	
 private:
+	TObjectPtr<AEnemyAIController> AIController;
 	FTimerHandle ThrottledTickTimer;
 };

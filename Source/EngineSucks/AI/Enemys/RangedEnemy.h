@@ -6,7 +6,7 @@
 #include "EngineSucks/AI/Abstract/BaseEnemy.h"
 #include "RangedEnemy.generated.h"
 
-enum RangedEnemyFlags {
+enum RangedEnemyStateFlags {
 	k_None,					// This is the default state which the enemy will spawn as
 
 	k_Passive,				// The enemy will move around the player passively, but still throw ranged attacks towards the player
@@ -19,11 +19,14 @@ class ENGINESUCKS_API ARangedEnemy : public ABaseEnemy {
 	GENERATED_BODY()
 
 public:
-	ARangedEnemy();
+	ARangedEnemy() = default;
 
+	RangedEnemyStateFlags StateFlag = k_None;
+	
 protected:
 	virtual void BeginPlay() override;
+	virtual void ThrottledTick() override;
 
-public:
-	virtual void Tick(float deltaTime) override;
+private:
+	void TickStatePassive(float deltaTime);
 };

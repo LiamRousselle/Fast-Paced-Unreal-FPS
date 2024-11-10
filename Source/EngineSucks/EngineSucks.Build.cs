@@ -8,8 +8,12 @@ public class EngineSucks : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
+		// Core Dependency Modules
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput" });
 
+		// AI Dependency Modules
+		PublicDependencyModuleNames.AddRange(new string[] { "AIModule", "Navmesh", "NavigationSystem" });
+		
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI

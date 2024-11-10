@@ -2,12 +2,21 @@
 
 
 #include "BaseEnemy.h"
+
+#include "EnemyAIController.h"
 #include "EnemyHealth.h"
 
 ABaseEnemy::ABaseEnemy() {
 	PrimaryActorTick.bCanEverTick = false;
 
 	Health = CreateDefaultSubobject<UEnemyHealth>("EnemyHealth");
+}
+
+AEnemyAIController* ABaseEnemy::GetAIController() {
+	if ( !IsValid( AIController.Get() ) ) {
+		AIController = Cast<AEnemyAIController>( GetController() );
+	}
+	return AIController.Get();
 }
 
 void ABaseEnemy::BeginPlay() {
@@ -23,4 +32,19 @@ void ABaseEnemy::BeginPlay() {
 			true
 		);
 	}
+}
+
+void ABaseEnemy::MoveTo(FVector location) {
+	if ( !IsValid(AIController.Get()) ) {
+		// This looks really weird but i'm going to explain why i'm doing it like this
+		// So, basically, AIController may not exist during runtime. Whats going to happen is we're going to
+		// see what the result of GetAIController() gets us. If GetAIController() returns nullptr that means
+		// that the AIController TObjectPtr is nullptr. Meaning that we failed to find the AIController.
+		// But if it succeeds we'll continue through
+		if ( !IsValid( GetAIController() ) ) {
+			return;
+		}
+	}
+
+	//AIController.Get()->MoveTo( location );
 }
