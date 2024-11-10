@@ -1,6 +1,12 @@
 # Fast-Paced-Unreal-FPS
  DOOM 2016/DOOM Eternal inspired game made in Unreal Engine 5.4.4
 
+# Assets used in project:
+All assets not made by me will NOT come with the source code, as it goes against there license.
+
+JUPITER - Sci-Fi Modular Environment Kit, by SergeyTyapkin, (https://www.fab.com/listings/930196d4-132a-4a28-893a-dc8a05edf8fc)
+
+
 # Code Style/Developer Workflow
  I took heavy inspiration from Valve's code style. This means Consistency, Readability, and Structured Commenting can
  be found all throughout my code!

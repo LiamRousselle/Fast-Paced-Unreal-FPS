@@ -29,8 +29,12 @@ protected:
 	virtual void ThrottledTick() {}
 
 	virtual void MoveTo(
-		FVector location
-		
+		FVector location,
+		float acceptanceRadius = -1,
+		bool stopOnOverlap = true,
+		bool usePathfinding = true,
+		bool navigation = false,
+		bool canStrafe = true
 	);
 	
 private:

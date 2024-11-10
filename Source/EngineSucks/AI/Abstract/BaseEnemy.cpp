@@ -34,7 +34,7 @@ void ABaseEnemy::BeginPlay() {
 	}
 }
 
-void ABaseEnemy::MoveTo(FVector location) {
+void ABaseEnemy::MoveTo(FVector location, float acceptanceRadius, bool stopOnOverlap, bool usePathfinding, bool navigation, bool canStrafe) {
 	if ( !IsValid(AIController.Get()) ) {
 		// This looks really weird but i'm going to explain why i'm doing it like this
 		// So, basically, AIController may not exist during runtime. Whats going to happen is we're going to
@@ -46,5 +46,12 @@ void ABaseEnemy::MoveTo(FVector location) {
 		}
 	}
 
-	//AIController.Get()->MoveTo( location );
+	AIController.Get()->MoveToLocation(
+		location,
+		acceptanceRadius,
+		stopOnOverlap,
+		usePathfinding,
+		navigation,
+		canStrafe
+	);
 }
