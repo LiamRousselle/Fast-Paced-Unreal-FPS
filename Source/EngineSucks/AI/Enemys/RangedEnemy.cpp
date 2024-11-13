@@ -13,7 +13,7 @@ void ARangedEnemy::BeginPlay() {
 void ARangedEnemy::ThrottledTick() {
 	float deltaTime = k_ThrottledTickRate;
 	Super::ThrottledTick();
-
+	
 	// Make sure the health component exists, otherwise
 	// we're going to be in a lot of trouble.
 	if ( Health == nullptr ) {
@@ -45,5 +45,5 @@ void ARangedEnemy::ThrottledTick() {
 }
 
 void ARangedEnemy::TickStatePassive(float deltaTime) {
-	
+
 }

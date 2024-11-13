@@ -29,4 +29,6 @@ protected:
 
 private:
 	void TickStatePassive(float deltaTime);
+
+	float AttackExpirationDate = -1.f;
 };
