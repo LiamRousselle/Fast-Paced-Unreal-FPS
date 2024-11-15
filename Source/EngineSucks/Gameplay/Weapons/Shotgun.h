@@ -10,7 +10,7 @@
 class AViewmodel;
 class ACharacterController;
 
-UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
+UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable)
 class ENGINESUCKS_API UShotgun : public USceneComponent {
 	GENERATED_BODY()
 

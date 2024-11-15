@@ -12,12 +12,11 @@
   <component name="ChangeListManager">
     <list default="true" id="c908f06f-cbf8-4dca-b662-17f80e32af94" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Enemies/BP_RangedEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Enemies/BP_RangedEnemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Player/BP_CharacterController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Player/BP_CharacterController.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CameraController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CameraController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -457,7 +456,7 @@
       <workItem from="1731283288229" duration="1196000" />
       <workItem from="1731456112316" duration="5424000" />
       <workItem from="1731542871750" duration="3464000" />
-      <workItem from="1731620642307" duration="3347000" />
+      <workItem from="1731620642307" duration="5261000" />
     </task>
     <task id="LOCAL-00001" summary="Pray nothing breaks">
       <option name="closed" value="true" />

@@ -21,9 +21,6 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Jump Settings")
 	int32 TotalMidAirJumps = 1;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Component", meta = (AllowPrivateAccess = true))
-	UShotgun* Shotgun;
-	
 public:
 	UFUNCTION(BlueprintGetter)
 	UCameraController* GetCameraController() { return CameraController; };

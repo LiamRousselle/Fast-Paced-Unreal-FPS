@@ -16,10 +16,7 @@ ACharacterController::ACharacterController()
 	CameraController = CreateDefaultSubobject<UCameraController>("CameraComponent");
 	CameraController->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
 	CameraController->SetRelativeLocation(FVector::ZAxisVector * 60.f);
-
-	Shotgun = CreateDefaultSubobject<UShotgun>("Shotgun");
-	Shotgun->AttachToComponent(GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-
+	
 	Health = CreateDefaultSubobject<UPlayerHealth>("Health");
 	
 	RemainingMidAirJumps = TotalMidAirJumps;
@@ -27,7 +24,7 @@ ACharacterController::ACharacterController()
 
 void ACharacterController::Tick(float deltaTime) {
 	Super::Tick(deltaTime);
-
+	
 	StepMovementThisFrame(deltaTime);
 	StepJumpingThisFrame(deltaTime);
 }
@@ -129,8 +126,12 @@ void ACharacterController::InputLookHorizontal(float axis) {
 
 void ACharacterController::InputBeginPrimaryUse() {
 	UWorld* world = GetWorld();
-	if ( IsValid(Shotgun) && IsValid(world) ) {
-		Shotgun->Fire(world);
+
+	// because the shotgun had to be created using blueprints because of engine issues
+	// find the shotgun the call fire on that shotgun
+	UShotgun* shotgun = FindComponentByClass<UShotgun>();
+	if ( IsValid(shotgun) ) {
+		shotgun->Fire( world );
 	}
 }
 
