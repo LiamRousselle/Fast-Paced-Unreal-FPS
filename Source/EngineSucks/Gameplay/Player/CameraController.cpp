@@ -3,6 +3,8 @@
 
 #include "CameraController.h"
 
+#include "Kismet/GameplayStatics.h"
+
 const FVector XYPlane = FVector(1.f, 1.f, 0.f);
 
 UCameraController::UCameraController() {

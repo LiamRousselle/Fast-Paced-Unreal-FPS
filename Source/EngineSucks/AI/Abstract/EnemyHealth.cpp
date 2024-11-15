@@ -1,5 +1,7 @@
 ﻿
 #include "EnemyHealth.h"
+
+#include "EngineSucks/Gameplay/DemoGameMode.h"
 #include "Kismet/GameplayStatics.h"
 
 void UEnemyHealth::BeginPlay() {
@@ -70,7 +72,14 @@ void UEnemyHealth::TryPerformGloryKill(ACharacterController* characterController
 	// TODO!
 	// After the actor is destroyed
 	// Play a glory kill animation
-	
+
+	// For some reason when performing a glory kill
+	// OnDied isn't triggered
+	// so i'm calling it here
+	// I have no idea if past me was just dumb and forgot to add it
+	// or if past me intended for this.
+	// uh oh
+	OnDied();
 }
 
 void UEnemyHealth::OnStunned() {
@@ -97,5 +106,11 @@ void UEnemyHealth::OnDied() {
 	// For now just destroy the actor
 	if ( GetOwner() ) {
 		GetOwner()->Destroy();
+	}
+
+	// Tell the game mode an enemy has died
+	ADemoGameMode* gameMode = Cast<ADemoGameMode>(UGameplayStatics::GetGameMode( GetWorld() ));
+	if ( IsValid( gameMode ) ) {
+		gameMode->OnEnemyKilled();
 	}
 }
