@@ -15,6 +15,9 @@ class ENGINESUCKS_API AEnemyWaypoint : public AActor {
 public:
 	AEnemyWaypoint();
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Enemy Waypoint")
+	bool bIsTaken = false;
+	
 private:
 	UPROPERTY(EditDefaultsOnly, Category = "Enemy Waypoint", meta = (AllowPrivateAccess = true))
 	UCapsuleComponent* Volume;
