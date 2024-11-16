@@ -4,6 +4,7 @@
 #include "AICacheSystem.h"
 #include "EngineUtils.h"
 #include "EngineSucks/Volumes/EnemyWaypoint.h"
+#include "Kismet/GameplayStatics.h"
 
 // Used to flatten a FVector's Z axis
 const FVector XYPlane = FVector(1.f, 1.f, 0.f);
@@ -34,6 +35,23 @@ AEnemyWaypoint* UAICacheSystem::GetRandomAvailableWaypoint() {
 	}
 	
 	return waypoint;
+}
+
+AEnemyWaypoint* UAICacheSystem::GetRandomWaypoint(UWorld* world) {
+	TArray<AActor*> foundWaypoints;
+	UGameplayStatics::GetAllActorsOfClass(world, AEnemyWaypoint::StaticClass(), foundWaypoints);
+
+	if ( foundWaypoints.Num() == 0 ) {
+		return nullptr; // No waypoints
+	}
+
+	AActor* actor = foundWaypoints[FMath::RandRange(0, foundWaypoints.Num() - 1)];
+	if ( IsValid( actor ) ) {
+		if ( AEnemyWaypoint* waypoint = Cast<AEnemyWaypoint>(actor) ) {
+			return waypoint;
+		}
+	}
+	return nullptr;
 }
 
 void UAICacheSystem::Initialize(FSubsystemCollectionBase& collection) {

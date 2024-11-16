@@ -25,6 +25,8 @@ public:
 	APawn* GetLocalPlayerPawn();
 
 	AEnemyWaypoint* GetRandomAvailableWaypoint();
+
+	static AEnemyWaypoint* GetRandomWaypoint(UWorld* world);
 	
 protected:
 	virtual void Initialize(FSubsystemCollectionBase& collection) override;

@@ -43,7 +43,7 @@ void UShotgun::BeginPlay() {
 	UWorld* world = GetWorld();
 	if ( IsValid(ShotgunViewmodelReference.Get()) && IsValid(world) ) {
 		ShotgunViewmodel = NewObject<AViewmodel>(world, ShotgunViewmodelReference.Get());
-		if ( IsValid(ShotgunViewmodel) ) {
+		if ( IsValid( ShotgunViewmodel.Get() ) ) {
 			ShotgunViewmodel->Show();
 			UE_LOG(LogTemp, Log, TEXT("Created shotgun viewmodel successfully"));
 		}

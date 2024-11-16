@@ -15,9 +15,11 @@
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/BP_DemoGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/BP_DemoGameMode.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/EngineSucks.Build.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/EngineSucks.Build.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -459,7 +461,8 @@
       <workItem from="1731542871750" duration="3464000" />
       <workItem from="1731620642307" duration="6215000" />
       <workItem from="1731706021002" duration="949000" />
-      <workItem from="1731729473335" duration="4248000" />
+      <workItem from="1731729473335" duration="5726000" />
+      <workItem from="1731791940548" duration="3986000" />
     </task>
     <task id="LOCAL-00001" summary="Pray nothing breaks">
       <option name="closed" value="true" />
