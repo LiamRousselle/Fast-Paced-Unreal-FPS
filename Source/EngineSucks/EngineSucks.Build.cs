@@ -14,6 +14,9 @@ public class EngineSucks : ModuleRules
 		// AI Dependency Modules
 		PublicDependencyModuleNames.AddRange(new string[] { "AIModule", "Navmesh", "NavigationSystem" });
 		
+        // User Interface Modules
+        PublicDependencyModuleNames.AddRange(new string[] { "UMG" });
+        
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
 		// Uncomment if you are using Slate UI
