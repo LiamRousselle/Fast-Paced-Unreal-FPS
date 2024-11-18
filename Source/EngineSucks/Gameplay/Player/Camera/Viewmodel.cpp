@@ -6,6 +6,7 @@
 #include "Components/ArrowComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "EngineSucks/Gameplay/Player/CharacterController.h"
+#include "EngineSucks/Utilities/Spring.h"
 
 AViewmodel::AViewmodel() {
 	PrimaryActorTick.bCanEverTick = true;
@@ -38,6 +39,12 @@ AViewmodel::AViewmodel() {
 void AViewmodel::Show() {
 	// Show the viewmodel actor
 	bViewmodelShown = true;
+
+	// Create the sway spring if it doesn't already exist
+	if ( !IsValid( SwaySpring.Get() ) ) {
+		SwaySpring = NewObject<USpring>( this );
+		SwaySpring->SetProperties( 10, 50, 8, 16 );
+	}
 	
 	UWorld* world = GetWorld();
 	if ( IsValid( world ) ) {
@@ -77,18 +84,36 @@ void AViewmodel::Tick(float deltaTime) {
 	if ( bViewmodelShown ) {
 		Super::Tick(deltaTime);
 
+		// Update the sway spring
+		if ( IsValid( SwaySpring.Get() ) ) {
+			SwaySpring.Get()->Update( deltaTime );
+		}
+		
 		// Move the viewmodel to the Local Player's Camera
 		if ( IsValid( LocalCharacterController.Get() ) ) {
 			UCameraController* localCameraController = LocalCharacterController.Get()->GetCameraController();
 			if ( IsValid(localCameraController) ) {
+				FRotator cameraRotation = localCameraController->GetComponentRotation();
+				
 				// Change the view-model's transform to match the camera's transform
 				SetActorLocation( localCameraController->GetComponentLocation() );
-				SetActorRotation( localCameraController->GetComponentRotation() );
+				SetActorRotation( cameraRotation );
+
+				// Handle swaying
+				SwaySpring->Shove( FVector(LocalCharacterController.Get()->AnalogCameraRotation, 0.f) * SwayInfluence * 3.f );
+				AddActorLocalRotation( FRotator(-SwaySpring->Position.X, -SwaySpring->Position.Y, 0.f) );
+
+				// Rotate the viewmodel in the direction we're moving
+				FRotator moveTiltRotation = FRotator( 0.f, 0.f, LocalCharacterController.Get()->AnalogMoveDirection.X ) * 5.f;
+				CurrentMoveTiltRotation += (moveTiltRotation - CurrentMoveTiltRotation) * FMath::Min(deltaTime * 5.f, 1.f);
+				
+				AddActorLocalRotation( CurrentMoveTiltRotation );
 			}
 		}
 		else {
 			UE_LOG(LogTemp, Warning, TEXT("LocalCharacterController is stale, cannot changes viewmodel's transform."));
 		}
+		
 	}
 }
 

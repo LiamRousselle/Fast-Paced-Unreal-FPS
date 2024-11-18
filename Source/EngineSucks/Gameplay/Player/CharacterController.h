@@ -30,13 +30,16 @@ public:
 public:
 	UFUNCTION(BlueprintGetter)
 	UCameraController* GetCameraController() { return CameraController; };
+
+public:
+	FVector2D AnalogMoveDirection = FVector2D();
+	FVector2D AnalogCameraRotation = FVector2D();
 	
+public:
 	virtual void Tick(float deltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 protected:
-	FVector2D AnalogMoveDirection = FVector2D();
-	
 	bool bJumpInputDown = false;
 	int32 RemainingMidAirJumps; // Set within constructor
 	

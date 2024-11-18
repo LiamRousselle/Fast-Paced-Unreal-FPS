@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Viewmodel.generated.h"
 
+class USpring;
 class ACharacterController;
 class UArrowComponent;
 
@@ -27,6 +28,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Viewmodel")
 	virtual void Hide();
 
+public:
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
+	float SwayInfluence = 1.f;
+	
 protected:
 	virtual void Tick(float deltaTime) override;
 	
@@ -34,6 +39,9 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Viewmodel", meta = (AllowPrivateAccess = true))
 	TObjectPtr<USkeletalMeshComponent> Mesh;
 
+	UPROPERTY(VisibleAnywhere, Category = "Springs")
+	TObjectPtr<USpring> SwaySpring;
+	
 #if WITH_EDITORONLY_DATA
 	UPROPERTY(EditInstanceOnly, Category = "Viewmodel")
 	TObjectPtr<UArrowComponent> EditorArrow;
@@ -42,6 +50,8 @@ private:
 	TObjectPtr<ACharacterController> LocalCharacterController = nullptr;
 
 private:
+	FRotator CurrentMoveTiltRotation = FRotator();
+	
 	bool bViewmodelShown = false;
 	
 };

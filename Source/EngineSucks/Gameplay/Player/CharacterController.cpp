@@ -137,12 +137,14 @@ void ACharacterController::InputMoveRight(float axis) {
 void ACharacterController::InputLookVertical(float axis) {
 	if ( IsValid(CameraController) ) {
 		CameraController->RotateCameraUsingConstraints(FRotator(axis*MouseSensitivity, 0.f, 0.f));
+		AnalogCameraRotation.X = axis*MouseSensitivity;
 	}
 }
 
 void ACharacterController::InputLookHorizontal(float axis) {
 	if ( IsValid(CameraController) ) {
 		CameraController->RotateCameraUsingConstraints(FRotator(0.f, axis*MouseSensitivity, 0.f));
+		AnalogCameraRotation.Y = axis*MouseSensitivity;
 	}
 }
 
