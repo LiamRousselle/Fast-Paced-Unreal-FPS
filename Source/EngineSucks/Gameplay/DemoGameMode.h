@@ -33,7 +33,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Tracker")
 	int32 EnemyKillCount = 0;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Settings")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
 	int32 EnemySpawnLimit = 9;
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")

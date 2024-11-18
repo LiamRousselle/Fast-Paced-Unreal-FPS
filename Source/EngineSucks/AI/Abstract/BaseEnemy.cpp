@@ -5,6 +5,8 @@
 
 #include "EnemyAIController.h"
 #include "EnemyHealth.h"
+#include "EngineSucks/AI/Systems/AICacheSystem.h"
+#include "EngineSucks/Volumes/EnemyWaypoint.h"
 
 ABaseEnemy::ABaseEnemy() {
 	PrimaryActorTick.bCanEverTick = false;
@@ -12,7 +14,20 @@ ABaseEnemy::ABaseEnemy() {
 	Health = CreateDefaultSubobject<UEnemyHealth>("EnemyHealth");
 }
 
+void ABaseEnemy::SetTargetWaypoint(AEnemyWaypoint* waypoint) {
+	// If we previously had a Target Waypoint disconnect this enemy from it
+	if ( IsValid(TargetWaypoint.Get()) ) {
+		TargetWaypoint.Get()->bIsTaken = false;
+	}
+
+	TargetWaypoint = waypoint;
+}
+
 AEnemyAIController* ABaseEnemy::GetAIController() {
+	if ( GetController() == nullptr ) {
+		UE_LOG(LogTemp, Error, TEXT("%s is missing AI Controller"), *GetName());
+		return nullptr;
+	}
 	if ( !IsValid( AIController.Get() ) ) {
 		AIController = Cast<AEnemyAIController>( GetController() );
 	}
@@ -32,6 +47,11 @@ void ABaseEnemy::BeginPlay() {
 			true
 		);
 	}
+
+	// Try and index the AI cache system if it's not already indexed
+	if ( !IsValid( AICacheSystem.Get() ) ) {
+		IndexAICacheSystem();
+	}
 }
 
 void ABaseEnemy::MoveTo(FVector location, float acceptanceRadius, bool stopOnOverlap, bool usePathfinding, bool navigation, bool canStrafe) {
@@ -45,7 +65,7 @@ void ABaseEnemy::MoveTo(FVector location, float acceptanceRadius, bool stopOnOve
 			return;
 		}
 	}
-
+	
 	AIController.Get()->MoveToLocation(
 		location,
 		acceptanceRadius,
@@ -54,4 +74,19 @@ void ABaseEnemy::MoveTo(FVector location, float acceptanceRadius, bool stopOnOve
 		navigation,
 		canStrafe
 	);
+}
+
+void ABaseEnemy::StopMovement() {
+	if ( !IsValid(AIController.Get()) ) {
+		if ( !IsValid( GetAIController() ) ) {
+			return;
+		}
+	}
+
+	AIController.Get()->StopMovement();
+}
+
+void ABaseEnemy::IndexAICacheSystem() {
+	UGameInstance* instance = GetWorld()->GetGameInstance();
+	AICacheSystem = instance ? instance->GetSubsystem<UAICacheSystem>() : nullptr;
 }

@@ -21,6 +21,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Jump Settings")
 	int32 TotalMidAirJumps = 1;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Mouse Sensitivity")
+	float MouseSensitivity = 0.75f;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "User Interface")
+	TSubclassOf<UUserWidget> CrosshairWidgetReference;
+	
 public:
 	UFUNCTION(BlueprintGetter)
 	UCameraController* GetCameraController() { return CameraController; };
@@ -37,6 +43,8 @@ protected:
 	void StepMovementThisFrame(float deltaTime);
 	void StepJumpingThisFrame(float deltaTime);
 
+	virtual void BeginPlay() override;
+	
 	virtual void Jump() override;
 	virtual void Landed(const FHitResult& Hit) override;
 	

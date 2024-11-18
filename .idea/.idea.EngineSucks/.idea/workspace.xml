@@ -12,13 +12,20 @@
   <component name="ChangeListManager">
     <list default="true" id="c908f06f-cbf8-4dca-b662-17f80e32af94" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/DefaultEditor.ini" beforeDir="false" afterPath="$PROJECT_DIR$/Config/DefaultEditor.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Enemies/BP_RangedEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Enemies/BP_RangedEnemy.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/BP_DemoGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/BP_DemoGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Player/BP_CharacterController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Player/BP_CharacterController.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Viewmodels/BP_VM_Shotgun.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Viewmodels/BP_VM_Shotgun.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -462,7 +469,10 @@
       <workItem from="1731620642307" duration="6215000" />
       <workItem from="1731706021002" duration="949000" />
       <workItem from="1731729473335" duration="5726000" />
-      <workItem from="1731791940548" duration="3986000" />
+      <workItem from="1731791940548" duration="7376000" />
+      <workItem from="1731815782203" duration="2385000" />
+      <workItem from="1731882301892" duration="2040000" />
+      <workItem from="1731890590062" duration="1600000" />
     </task>
     <task id="LOCAL-00001" summary="Pray nothing breaks">
       <option name="closed" value="true" />

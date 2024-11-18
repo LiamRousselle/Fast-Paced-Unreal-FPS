@@ -22,6 +22,7 @@ public:
 	ARangedEnemy() = default;
 
 	RangedEnemyStateFlags StateFlag = k_None;
+	RangedEnemyStateFlags PreviousStateFlag = StateFlag;
 	
 protected:
 	virtual void BeginPlay() override;

@@ -3,6 +3,7 @@
 
 #include "CharacterController.h"
 
+#include "Blueprint/UserWidget.h"
 #include "Components/PlayerHealth.h"
 #include "EngineSucks/AI/Abstract/BaseEnemy.h"
 #include "EngineSucks/AI/Abstract/EnemyHealth.h"
@@ -91,6 +92,27 @@ void ACharacterController::StepJumpingThisFrame(float deltaTime) {
 	}
 }
 
+void ACharacterController::BeginPlay() {
+	Super::BeginPlay();
+
+	UWorld* world = GetWorld();
+	if ( !IsValid(world) ) { return; }
+	
+	// Create crosshair user interface
+	if ( IsValid( CrosshairWidgetReference.Get() ) ) {
+		UUserWidget* crosshairWidget = CreateWidget<UUserWidget>(world, CrosshairWidgetReference.Get());
+		if ( IsValid(crosshairWidget) ) {
+			crosshairWidget->AddToViewport();
+		}
+		else {
+			UE_LOG(LogTemp, Error, TEXT("Failed to create Crosshair Widget"));
+		}
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Missing CrosshairWidgetReference"));
+	}
+}
+
 void ACharacterController::Jump() {
 	UCharacterMovementComponent* characterMovement = GetCharacterMovement();
 	if ( characterMovement ) {
@@ -114,13 +136,13 @@ void ACharacterController::InputMoveRight(float axis) {
 
 void ACharacterController::InputLookVertical(float axis) {
 	if ( IsValid(CameraController) ) {
-		CameraController->RotateCameraUsingConstraints(FRotator(axis, 0.f, 0.f));
+		CameraController->RotateCameraUsingConstraints(FRotator(axis*MouseSensitivity, 0.f, 0.f));
 	}
 }
 
 void ACharacterController::InputLookHorizontal(float axis) {
 	if ( IsValid(CameraController) ) {
-		CameraController->RotateCameraUsingConstraints(FRotator(0.f, axis, 0.f));
+		CameraController->RotateCameraUsingConstraints(FRotator(0.f, axis*MouseSensitivity, 0.f));
 	}
 }
 

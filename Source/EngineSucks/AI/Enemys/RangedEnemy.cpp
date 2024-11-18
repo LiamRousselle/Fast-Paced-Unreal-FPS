@@ -4,15 +4,24 @@
 #include "RangedEnemy.h"
 
 #include "EngineSucks/AI/Abstract/EnemyHealth.h"
+#include "EngineSucks/AI/Systems/AICacheSystem.h"
+#include "EngineSucks/Volumes/EnemyWaypoint.h"
 
 void ARangedEnemy::BeginPlay() {
 	Super::BeginPlay();
-	
+
+	IndexAICacheSystem();
 }
 
 void ARangedEnemy::ThrottledTick() {
 	float deltaTime = k_ThrottledTickRate;
 	Super::ThrottledTick();
+
+	// Try and index the AI cache system if it's not already indexed
+	if ( !IsValid( AICacheSystem.Get() ) ) {
+		IndexAICacheSystem();
+		return;
+	}
 	
 	// Make sure the health component exists, otherwise
 	// we're going to be in a lot of trouble.
@@ -40,10 +49,34 @@ void ARangedEnemy::ThrottledTick() {
 	// But if we're stunned then stop everything we're doing and play by the rules,
 	// meaning that we should stop moving and do nothing
 	else {
-		
+		StopMovement();
 	}
+
+	PreviousStateFlag = StateFlag;
 }
 
 void ARangedEnemy::TickStatePassive(float deltaTime) {
-
+	// If we changed states reset the waypoint
+	if ( StateFlag != PreviousStateFlag ) {
+		SetTargetWaypoint( nullptr );
+	}
+	
+	// If we don't have a waypoint try and find one
+	if ( GetTargetWaypoint() == nullptr ) {
+		// Note!
+		// AICacheSystem.Get()->GetRandomAvailableWaypoint() may return nullptr
+		// If this is the case this if statement will be called again.
+		SetTargetWaypoint( AICacheSystem.Get()->GetRandomAvailableWaypoint() );
+		return;
+	}
+	
+	// Move to the target waypoint
+	FVector waypointLocation = GetTargetWaypoint()->GetActorLocation();
+	MoveTo( waypointLocation );
+	
+	// Check if we reached the waypoint
+	if ( FVector::Distance(waypointLocation, GetActorLocation()) <= 50.f ) {
+		// If so change waypoints
+		SetTargetWaypoint( AICacheSystem.Get()->GetRandomAvailableWaypoint() );
+	}
 }

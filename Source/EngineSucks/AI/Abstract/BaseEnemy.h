@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "BaseEnemy.generated.h"
 
+class UAICacheSystem;
+class AEnemyWaypoint;
 class AEnemyAIController;
 class UEnemyHealth;
 
@@ -22,8 +24,13 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Health")
 	UEnemyHealth* Health;
 
+	AEnemyWaypoint* GetTargetWaypoint() { return TargetWaypoint.Get(); }
+	void SetTargetWaypoint(AEnemyWaypoint* waypoint);
+	
 protected:
 	AEnemyAIController* GetAIController();
+
+	TObjectPtr<UAICacheSystem> AICacheSystem;
 	
 	virtual void BeginPlay() override;
 	virtual void ThrottledTick() {}
@@ -36,8 +43,13 @@ protected:
 		bool navigation = false,
 		bool canStrafe = true
 	);
+	virtual void StopMovement();
+	
+	virtual void IndexAICacheSystem();
 	
 private:
 	TObjectPtr<AEnemyAIController> AIController;
 	FTimerHandle ThrottledTickTimer;
+
+	TObjectPtr<AEnemyWaypoint> TargetWaypoint;
 };
