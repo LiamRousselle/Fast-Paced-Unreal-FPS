@@ -31,6 +31,9 @@ public:
 public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
 	float SwayInfluence = 1.f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
+	bool bSpringJumpingAndLandingAnimations = true;
 	
 protected:
 	virtual void Tick(float deltaTime) override;
@@ -41,6 +44,8 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Springs")
 	TObjectPtr<USpring> SwaySpring;
+	UPROPERTY(VisibleAnywhere, Category = "Springs")
+	TObjectPtr<USpring> MidAirSpring;
 	
 #if WITH_EDITORONLY_DATA
 	UPROPERTY(EditInstanceOnly, Category = "Viewmodel")
@@ -53,5 +58,6 @@ private:
 	FRotator CurrentMoveTiltRotation = FRotator();
 	
 	bool bViewmodelShown = false;
+	bool bPreviouslyLanded = true;
 	
 };

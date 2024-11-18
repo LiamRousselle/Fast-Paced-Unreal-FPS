@@ -7,6 +7,7 @@
 #include "Components/CapsuleComponent.h"
 #include "EngineSucks/Gameplay/Player/CharacterController.h"
 #include "EngineSucks/Utilities/Spring.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 AViewmodel::AViewmodel() {
 	PrimaryActorTick.bCanEverTick = true;
@@ -44,6 +45,11 @@ void AViewmodel::Show() {
 	if ( !IsValid( SwaySpring.Get() ) ) {
 		SwaySpring = NewObject<USpring>( this );
 		SwaySpring->SetProperties( 10, 50, 8, 16 );
+	}
+	// Create the mid-air spring if it doesn't already exist
+	if ( !IsValid( MidAirSpring.Get() ) ) {
+		MidAirSpring = NewObject<USpring>( this );
+		MidAirSpring->SetProperties( 100, 50,  2, 16 );
 	}
 	
 	UWorld* world = GetWorld();
@@ -88,6 +94,10 @@ void AViewmodel::Tick(float deltaTime) {
 		if ( IsValid( SwaySpring.Get() ) ) {
 			SwaySpring.Get()->Update( deltaTime );
 		}
+		// Update the mid-air spring
+		if ( IsValid( MidAirSpring.Get() ) ) {
+			MidAirSpring.Get()->Update( deltaTime );
+		}
 		
 		// Move the viewmodel to the Local Player's Camera
 		if ( IsValid( LocalCharacterController.Get() ) ) {
@@ -108,7 +118,29 @@ void AViewmodel::Tick(float deltaTime) {
 				CurrentMoveTiltRotation += (moveTiltRotation - CurrentMoveTiltRotation) * FMath::Min(deltaTime * 5.f, 1.f);
 				
 				AddActorLocalRotation( CurrentMoveTiltRotation );
+
+				// Rotate & Position the viewmodel depending on the Mid-Air spring
+				AddActorLocalOffset( MidAirSpring.Get()->Position );
+				AddActorLocalRotation( FRotator(-MidAirSpring->Position.Z * 0.25f, 0.f, 0.f) );
 			}
+
+			// Handle landing spring
+			UCharacterMovementComponent* movementComponent = LocalCharacterController.Get()->GetCharacterMovement();
+			if ( IsValid( movementComponent ) && bSpringJumpingAndLandingAnimations ) {
+				bool nowLanded = movementComponent->IsMovingOnGround();
+				if ( nowLanded != bPreviouslyLanded ) {
+					if ( nowLanded ) {
+						// Character has landed
+						MidAirSpring->Shove( FVector::UpVector * -10.f );
+					} else {
+						// Character has jumped
+						MidAirSpring->Shove( FVector::UpVector * 12.5f );
+					}
+				}
+
+				bPreviouslyLanded = nowLanded;
+			}
+			
 		}
 		else {
 			UE_LOG(LogTemp, Warning, TEXT("LocalCharacterController is stale, cannot changes viewmodel's transform."));
@@ -116,4 +148,3 @@ void AViewmodel::Tick(float deltaTime) {
 		
 	}
 }
-
