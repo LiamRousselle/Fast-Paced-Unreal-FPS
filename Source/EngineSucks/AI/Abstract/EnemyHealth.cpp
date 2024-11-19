@@ -20,6 +20,8 @@ void UEnemyHealth::BeginPlay() {
 }
 
 void UEnemyHealth::HealthTick() {
+	if ( bIsDead ) { return; }
+	
 	if ( BeginRegenExpirationTime <= UGameplayStatics::GetRealTimeSeconds( GetWorld() ) ) {
 		// If the health regen cooldown is
 		// up begin the health regen
@@ -71,18 +73,6 @@ void UEnemyHealth::TryPerformGloryKill(ACharacterController* characterController
 	
 	UE_LOG(LogTemp, Log, TEXT("Performing glory kill"));
 	
-	// First we're going to destroy the actor
-	if ( IsValid(GetOwner()) ) {
-		GetOwner()->Destroy();
-	}
-	else {
-		UE_LOG(LogTemp, Error, TEXT("Glory kill failed. Could not destroy the Actor owning the health component"));
-		return;
-	}
-
-	// TODO!
-	// After the actor is destroyed
-	// Play a glory kill animation
 	if ( IsValid( GloryKillFacadeReference.Get() ) ) {
 		FVector worldLocation = GetOwner()->GetActorLocation();
 
@@ -90,36 +80,34 @@ void UEnemyHealth::TryPerformGloryKill(ACharacterController* characterController
 		FRotator gloryKillRotation = gloryKillDirection.ToOrientationRotator();
 		
 		// Create the glory kill actor
-		AGloryKillFacade* gloryKillActor = world->SpawnActor<AGloryKillFacade>( GloryKillFacadeReference.Get() );
-		gloryKillActor->SetActorLocation( GetOwner()->GetActorLocation() + FVector::UpVector * 60.f );
-		gloryKillActor->SetActorRotation( gloryKillRotation );
+		ActiveGloryKillFacade = world->SpawnActor<AGloryKillFacade>( GloryKillFacadeReference.Get() );
+		ActiveGloryKillFacade->SetActorLocation( GetOwner()->GetActorLocation() + FVector::UpVector * 60.f );
+		ActiveGloryKillFacade->SetActorRotation( gloryKillRotation );
 
 		// Hide the character controller
 		characterController->SetActorHiddenInGame( true );
-		// TODO! Pause character controller
+		
+		// Hide this actor
+		GetOwner()->SetActorHiddenInGame( true );
+		GetOwner()->SetActorEnableCollision( false );
+
+		// Consider us dead
+		bIsDead = true;
 		
 		// Set the camera's view target to the glory kill's camera
-		localPlayerController->SetViewTarget( gloryKillActor );
+		localPlayerController->SetViewTarget( ActiveGloryKillFacade.Get() );
 
 		// Wait the glory kill duration, then complete the glory kill
 		world->GetTimerManager().SetTimer(
 			GloryKillFinishedTimer,
 			this,
 			&UEnemyHealth::OnGloryKillFinished,
-			gloryKillActor->GloryKillDuration,
+			ActiveGloryKillFacade->GloryKillDuration,
 			false
 		);
 	} else {
 		UE_LOG(LogTemp, Error, TEXT("%s is missing reference to GloryKillFacade blueprint."), *GetOwner()->GetName());
 	}
-	
-	// For some reason when performing a glory kill
-	// OnDied isn't triggered
-	// so i'm calling it here
-	// I have no idea if past me was just dumb and forgot to add it
-	// or if past me intended for this.
-	// uh oh
-	OnDied();
 }
 
 void UEnemyHealth::OnStunned() {
@@ -147,14 +135,29 @@ void UEnemyHealth::OnGloryKillFinished() {
 		UE_LOG(LogTemp, Error, TEXT("Cannot perform glory kill, no local player controller!"));
 		return;
 	}
+	
+	localPlayerController->SetViewTargetWithBlend( localPlayerController->GetPawn(), 0.5f, VTBlend_Cubic );
 
-	localPlayerController->SetViewTargetWithBlend( nullptr, 0.2f );
+	if ( IsValid( ActiveGloryKillFacade.Get() ) ) {
+		ActiveGloryKillFacade.Get()->SetActorHiddenInGame( true );
+	}
+
+	world->GetTimerManager().SetTimer(
+		DeathTimerDelay,
+		this,
+		&UEnemyHealth::OnDied,
+		1.f,
+		false
+	);
 }
 
 void UEnemyHealth::OnDied() {
-	// TODO!
-	// Make it so that when the enemy dies
-	// Ragdoll the model, or something like that
+	bIsDead = true;
+
+	// If there was a glory kill facade destroy it
+	if ( IsValid( ActiveGloryKillFacade.Get() ) ) {
+		ActiveGloryKillFacade.Get()->Destroy();
+	}
 	
 	// For now just destroy the actor
 	if ( GetOwner() ) {

@@ -32,8 +32,10 @@ public:
 	
 public:
 	float RegenHealth = MaxHealth;
+	
 	bool bIsStunned = false;
-
+	bool bIsDead = false;
+	
 public:
 	virtual void BeginPlay() override;
 	virtual void HealthTick();
@@ -44,6 +46,7 @@ public:
 protected:
 	FTimerHandle TickTimerHandle;
 	FTimerHandle GloryKillFinishedTimer;
+	FTimerHandle DeathTimerDelay;
 	
 	float BeginRegenExpirationTime = -1.f;
 	
@@ -54,5 +57,9 @@ protected:
 	virtual void OnGloryKillFinished();
 	
 	virtual void OnDied();
+
+private:
+	UPROPERTY()
+	TObjectPtr<AGloryKillFacade> ActiveGloryKillFacade;
 	
 };
