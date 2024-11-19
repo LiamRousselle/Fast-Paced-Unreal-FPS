@@ -6,9 +6,6 @@
 #include "EngineSucks/Volumes/EnemyWaypoint.h"
 #include "Kismet/GameplayStatics.h"
 
-// Used to flatten a FVector's Z axis
-const FVector XYPlane = FVector(1.f, 1.f, 0.f);
-
 APawn* UAICacheSystem::GetLocalPlayerPawn() {
 	UWorld* world = GetWorld();
 	if ( world ) {
@@ -89,7 +86,7 @@ void UAICacheSystem::ThrottleWaypointFinder() {
 	APawn* localPawn = GetLocalPlayerPawn();
 	if ( !IsValid(localPawn) ) { return; }
 
-	FVector localPawnWorldLocationXY = localPawn->GetActorLocation() * XYPlane;
+	FVector localPawnWorldLocationXY = localPawn->GetActorLocation() * FVector(1.f, 1.f, 0.f);
 	float localPawnLocationZ = localPawn->GetActorLocation().Z;
 
 	// Clear the previous available waypoints
@@ -103,7 +100,7 @@ void UAICacheSystem::ThrottleWaypointFinder() {
 		if ( IsValid(waypoint) ) {
 			// First check if the local player and waypoint location are in a good radius
 			// But don't check using any height, the height check will be done later
-			FVector waypointLocationXY = waypoint->GetActorLocation() * XYPlane;
+			FVector waypointLocationXY = waypoint->GetActorLocation() * FVector(1.f, 1.f, 0.f);
 			if ( FVector::Distance(localPawnWorldLocationXY, waypointLocationXY) > k_MaxWaypointValidDistance ) {
 				// Exceeds distance check
 				continue;

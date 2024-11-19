@@ -27,7 +27,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Health")
 	float DelayBeforeRegen = 1.5f;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Components")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TSubclassOf<AGloryKillFacade> GloryKillFacadeReference;
 	
 public:
@@ -43,12 +43,15 @@ public:
 
 protected:
 	FTimerHandle TickTimerHandle;
+	FTimerHandle GloryKillFinishedTimer;
 	
 	float BeginRegenExpirationTime = -1.f;
 	
 protected:
 	virtual void OnStunned();
 	virtual void StopStunned();
+
+	virtual void OnGloryKillFinished();
 	
 	virtual void OnDied();
 	

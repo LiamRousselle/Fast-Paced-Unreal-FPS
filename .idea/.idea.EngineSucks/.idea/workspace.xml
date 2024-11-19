@@ -12,19 +12,38 @@
   <component name="ChangeListManager">
     <list default="true" id="c908f06f-cbf8-4dca-b662-17f80e32af94" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Enemies/BP_TestEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Enemies/BP_TestEnemy.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Player/BP_CharacterController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/Player/BP_CharacterController.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Viewmodels/BP_VM_Shotgun.uasset" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Levels/Prototyping/TestEnviroment.umap" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Systems/AICacheSystem.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/GloryKills/GloryKillFacade.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/GloryKills/GloryKillFacade.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/GloryKills/GloryKillFacade.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/GloryKills/GloryKillFacade.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/Camera/Viewmodel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/Camera/Viewmodel.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/Camera/Viewmodel.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/Camera/Viewmodel.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CameraController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CameraController.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CameraController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CameraController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/EngineSucks/Gameplay/GloryKills/GloryKillFacade.cpp" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Source/EngineSucks/Gameplay/GloryKills/GloryKillFacade.h" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
 }</component>
@@ -461,7 +480,9 @@
       <workItem from="1731815782203" duration="2385000" />
       <workItem from="1731882301892" duration="2040000" />
       <workItem from="1731890590062" duration="3387000" />
-      <workItem from="1731967270850" duration="2181000" />
+      <workItem from="1731967270850" duration="8365000" />
+      <workItem from="1731977038472" duration="222000" />
+      <workItem from="1731977330150" duration="770000" />
     </task>
     <task id="LOCAL-00001" summary="Pray nothing breaks">
       <option name="closed" value="true" />

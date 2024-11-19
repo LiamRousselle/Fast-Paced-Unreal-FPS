@@ -137,10 +137,8 @@ void AViewmodel::Tick(float deltaTime) {
 						MidAirSpring->Shove( FVector::UpVector * 12.5f );
 					}
 				}
-
 				bPreviouslyLanded = nowLanded;
 			}
-			
 		}
 		else {
 			UE_LOG(LogTemp, Warning, TEXT("LocalCharacterController is stale, cannot changes viewmodel's transform."));

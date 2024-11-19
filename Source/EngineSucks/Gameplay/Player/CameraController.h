@@ -6,6 +6,8 @@
 #include "Camera/CameraComponent.h"
 #include "CameraController.generated.h"
 
+const FVector XYPlane = FVector(1.f, 1.f, 0.f);
+
 UCLASS()
 class ENGINESUCKS_API UCameraController : public UCameraComponent {
 	GENERATED_BODY()

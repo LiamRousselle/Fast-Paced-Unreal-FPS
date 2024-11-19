@@ -2,6 +2,8 @@
 #include "EnemyHealth.h"
 
 #include "EngineSucks/Gameplay/DemoGameMode.h"
+#include "EngineSucks/Gameplay/GloryKills/GloryKillFacade.h"
+#include "EngineSucks/Gameplay/Player/CharacterController.h"
 #include "Kismet/GameplayStatics.h"
 
 void UEnemyHealth::BeginPlay() {
@@ -53,13 +55,22 @@ void UEnemyHealth::TakeDamage(float damage) {
 }
 
 void UEnemyHealth::TryPerformGloryKill(ACharacterController* characterController) {
+	UWorld* world = GetWorld();
+	if ( !IsValid( world ) ) { return; }
+
+	APlayerController* localPlayerController = world->GetFirstPlayerController();
+	if ( !IsValid( localPlayerController ) ) {
+		UE_LOG(LogTemp, Error, TEXT("Cannot perform glory kill, no local player controller!"));
+		return;
+	}
+	
 	if ( !bIsStunned ) {
 		UE_LOG(LogTemp, Warning, TEXT("Cannot perform glory kill, enemy not stunned yet."));
 		return;
 	}
 	
 	UE_LOG(LogTemp, Log, TEXT("Performing glory kill"));
-
+	
 	// First we're going to destroy the actor
 	if ( IsValid(GetOwner()) ) {
 		GetOwner()->Destroy();
@@ -72,7 +83,36 @@ void UEnemyHealth::TryPerformGloryKill(ACharacterController* characterController
 	// TODO!
 	// After the actor is destroyed
 	// Play a glory kill animation
+	if ( IsValid( GloryKillFacadeReference.Get() ) ) {
+		FVector worldLocation = GetOwner()->GetActorLocation();
 
+		FVector gloryKillDirection = ((worldLocation - characterController->GetActorLocation()) * FVector(1.f, 1.f, 0.f)).GetSafeNormal();
+		FRotator gloryKillRotation = gloryKillDirection.ToOrientationRotator();
+		
+		// Create the glory kill actor
+		AGloryKillFacade* gloryKillActor = world->SpawnActor<AGloryKillFacade>( GloryKillFacadeReference.Get() );
+		gloryKillActor->SetActorLocation( GetOwner()->GetActorLocation() + FVector::UpVector * 60.f );
+		gloryKillActor->SetActorRotation( gloryKillRotation );
+
+		// Hide the character controller
+		characterController->SetActorHiddenInGame( true );
+		// TODO! Pause character controller
+		
+		// Set the camera's view target to the glory kill's camera
+		localPlayerController->SetViewTarget( gloryKillActor );
+
+		// Wait the glory kill duration, then complete the glory kill
+		world->GetTimerManager().SetTimer(
+			GloryKillFinishedTimer,
+			this,
+			&UEnemyHealth::OnGloryKillFinished,
+			gloryKillActor->GloryKillDuration,
+			false
+		);
+	} else {
+		UE_LOG(LogTemp, Error, TEXT("%s is missing reference to GloryKillFacade blueprint."), *GetOwner()->GetName());
+	}
+	
 	// For some reason when performing a glory kill
 	// OnDied isn't triggered
 	// so i'm calling it here
@@ -96,6 +136,19 @@ void UEnemyHealth::StopStunned() {
 	bIsStunned = false;
 
 	UE_LOG(LogTemp, Log, TEXT("No longer stunned"));
+}
+
+void UEnemyHealth::OnGloryKillFinished() {
+	UWorld* world = GetWorld();
+	if ( !IsValid( world ) ) { return; }
+	
+	APlayerController* localPlayerController = world->GetFirstPlayerController();
+	if ( !IsValid( localPlayerController ) ) {
+		UE_LOG(LogTemp, Error, TEXT("Cannot perform glory kill, no local player controller!"));
+		return;
+	}
+
+	localPlayerController->SetViewTargetWithBlend( nullptr, 0.2f );
 }
 
 void UEnemyHealth::OnDied() {
