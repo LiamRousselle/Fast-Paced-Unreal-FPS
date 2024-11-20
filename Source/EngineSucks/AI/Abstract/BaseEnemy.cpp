@@ -9,8 +9,6 @@
 #include "EngineSucks/Volumes/EnemyWaypoint.h"
 
 ABaseEnemy::ABaseEnemy() {
-	PrimaryActorTick.bCanEverTick = false;
-
 	Health = CreateDefaultSubobject<UEnemyHealth>("EnemyHealth");
 }
 
@@ -89,4 +87,16 @@ void ABaseEnemy::StopMovement() {
 void ABaseEnemy::IndexAICacheSystem() {
 	UGameInstance* instance = GetWorld()->GetGameInstance();
 	AICacheSystem = instance ? instance->GetSubsystem<UAICacheSystem>() : nullptr;
+}
+
+void ABaseEnemy::FacePlayer() {
+	if ( IsValid( AICacheSystem.Get() ) ) {
+		APawn* localPlayerPawn = AICacheSystem.Get()->GetLocalPlayerPawn();
+		if ( IsValid( localPlayerPawn ) ) {
+			FVector faceDirection = ( localPlayerPawn->GetActorLocation() - GetActorLocation() ).GetSafeNormal();
+			float faceYawDegress = FMath::RadiansToDegrees( FMath::Atan2( faceDirection.Y, faceDirection.X ) );
+
+			SetActorRotation( FRotator( 0.f, faceYawDegress, 0.f ) );
+		}
+	}
 }

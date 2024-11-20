@@ -7,10 +7,22 @@
 #include "EngineSucks/AI/Systems/AICacheSystem.h"
 #include "EngineSucks/Volumes/EnemyWaypoint.h"
 
+ARangedEnemy::ARangedEnemy() {
+	PrimaryActorTick.bCanEverTick = true;
+}
+
 void ARangedEnemy::BeginPlay() {
 	Super::BeginPlay();
 
 	IndexAICacheSystem();
+}
+
+void ARangedEnemy::Tick(float deltaTime) {
+	Super::Tick(deltaTime);
+
+	if ( IsValid( Health ) && !Health->bIsStunned ) {
+		FacePlayer();
+	}
 }
 
 void ARangedEnemy::ThrottledTick() {

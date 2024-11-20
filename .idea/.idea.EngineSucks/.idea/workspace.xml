@@ -15,10 +15,10 @@
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/BP_DemoGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/BP_DemoGameMode.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/UserInterface/UI_DemoTrackers.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UserInterface/UI_DemoTrackers.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/EnemyHealth.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/DemoGameMode.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Abstract/BaseEnemy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemys/RangedEnemy.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -479,7 +479,7 @@
       <workItem from="1731977330150" duration="770000" />
       <workItem from="1731988386450" duration="2662000" />
       <workItem from="1732039367054" duration="855000" />
-      <workItem from="1732074999916" duration="2750000" />
+      <workItem from="1732074999916" duration="3462000" />
     </task>
     <task id="LOCAL-00001" summary="Pray nothing breaks">
       <option name="closed" value="true" />

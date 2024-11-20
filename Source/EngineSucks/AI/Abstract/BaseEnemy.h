@@ -33,6 +33,8 @@ protected:
 	TObjectPtr<UAICacheSystem> AICacheSystem;
 	
 	virtual void BeginPlay() override;
+
+	virtual void Tick(float deltaTime) override { Super::Tick( deltaTime ); }
 	virtual void ThrottledTick() {}
 
 	virtual void MoveTo(
@@ -46,6 +48,8 @@ protected:
 	virtual void StopMovement();
 	
 	virtual void IndexAICacheSystem();
+
+	virtual void FacePlayer();
 	
 private:
 	TObjectPtr<AEnemyAIController> AIController;

@@ -19,13 +19,15 @@ class ENGINESUCKS_API ARangedEnemy : public ABaseEnemy {
 	GENERATED_BODY()
 
 public:
-	ARangedEnemy() = default;
+	ARangedEnemy();
 
 	RangedEnemyStateFlags StateFlag = k_None;
 	RangedEnemyStateFlags PreviousStateFlag = StateFlag;
 	
 protected:
 	virtual void BeginPlay() override;
+
+	virtual void Tick(float deltaTime) override;
 	virtual void ThrottledTick() override;
 
 private:
