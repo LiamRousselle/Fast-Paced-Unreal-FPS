@@ -6,6 +6,7 @@
 #include "EngineSucks/AI/Abstract/BaseEnemy.h"
 #include "EngineSucks/AI/Systems/AICacheSystem.h"
 #include "EngineSucks/Volumes/EnemyWaypoint.h"
+#include "Kismet/GameplayStatics.h"
 
 ADemoGameMode::ADemoGameMode() {
 	PrimaryActorTick.bCanEverTick = true;
@@ -27,9 +28,9 @@ void ADemoGameMode::BeginPlay() {
 
 	// Creating the UI tracker user interface
 	if ( IsValid( UITrackersReference.Get() ) ) {
-		UUserWidget* widget = CreateWidget<UUserWidget>( GetWorld(), UITrackersReference.Get() );
-		if ( IsValid( widget ) ) {
-			widget->AddToViewport();
+		UITrackers = CreateWidget<UUserWidget>( GetWorld(), UITrackersReference.Get() );
+		if ( IsValid( UITrackers.Get() ) ) {
+			UITrackers.Get()->AddToViewport();
 		}
 	}
 	else {
@@ -39,6 +40,13 @@ void ADemoGameMode::BeginPlay() {
 
 void ADemoGameMode::Tick(float deltaTime) {
 	Super::Tick(deltaTime);
+	if ( !bGameModeActive ) { return; }
+
+	// Check if the game is over
+	if ( GameTime == 0.f ) {
+		OnTimeExpired();
+		return;
+	}
 
 	// Tick down the game time every frame
 	if ( GameTime > 0.f ) {
@@ -48,6 +56,47 @@ void ADemoGameMode::Tick(float deltaTime) {
 	// If theres not enough enemies in the world spawn some
 	if ( EnemiesExisting < EnemySpawnLimit ) {
 		SpawnRandomEnemy();
+	}
+}
+
+void ADemoGameMode::PromptGameOverScreen(UWorld* world) {
+	// Remove the old tracker ui from the viewport
+	if ( IsValid( UITrackers.Get() ) ) {
+		UITrackers.Get()->RemoveFromParent();
+	}
+	
+	// Creating the game over user interface
+	if ( IsValid( UIGameOverReference.Get() ) ) {
+		UIGameOver = CreateWidget<UUserWidget>( world, UIGameOverReference.Get() );
+		if ( IsValid( UIGameOver.Get() ) ) {
+			UIGameOver.Get()->AddToViewport();
+		}
+	}
+	else {
+		UE_LOG(LogTemp, Error, TEXT("Missing reference for UITrackersReference"));
+	}
+}
+
+void ADemoGameMode::OnTimeExpired() {
+	bGameModeActive = false;
+
+	UE_LOG( LogTemp, Log, TEXT("Expired!") );
+	
+	UWorld* world = GetWorld();
+	if ( IsValid( world ) ) {
+		float timeDilation = 0.05f;
+		UGameplayStatics::SetGlobalTimeDilation( world, timeDilation );
+
+		PromptGameOverScreen( world );
+
+		// wait 5 seconds before going back to the main menu
+		world->GetTimerManager().SetTimer(
+			TeleportBackToLobbyDelay,
+			this,
+			&ADemoGameMode::BackToMainMenu,
+			3.f * timeDilation, // Although this seems fast, keep in min Time Dilation is set to 0.05
+			false
+		);
 	}
 }
 
@@ -71,6 +120,14 @@ void ADemoGameMode::SpawnRandomEnemy() {
 		
 		EnemiesExisting++;
 	}
+}
+
+void ADemoGameMode::BackToMainMenu() {
+	UE_LOG(LogTemp, Log, TEXT("go back to main menu"));
+
+	// TODO!
+	// Change this so you go back to the main menu instead of the testing place!
+	UGameplayStatics::OpenLevel( this, "PlayerControllerPrototype" );
 }
 
 FEnemySpawnStruct ADemoGameMode::GetRandomEnemyStructFromSpawnData() {

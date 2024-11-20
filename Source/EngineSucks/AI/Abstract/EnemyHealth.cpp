@@ -146,7 +146,7 @@ void UEnemyHealth::OnGloryKillFinished() {
 		DeathTimerDelay,
 		this,
 		&UEnemyHealth::OnDied,
-		1.f,
+		0.5f,
 		false
 	);
 }

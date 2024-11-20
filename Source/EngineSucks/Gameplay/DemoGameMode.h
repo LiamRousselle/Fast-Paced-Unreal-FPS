@@ -38,7 +38,10 @@ public:
 	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
 	float MaxGameTime = 150.f;
-
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Settings")
+	float GameTime = 150.f;
+	
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Enemy Spawns")
 	TArray<FEnemySpawnStruct> EnemySpawnData;
 	
@@ -46,22 +49,38 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TSubclassOf<UUserWidget> UITrackersReference;
 
+	// The user interface displayed when the game is over!
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
+	TSubclassOf<UUserWidget> UIGameOverReference;
+	
 public:
 	void OnEnemyKilled();
 
-public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	float GameTime = MaxGameTime;
+protected:
+	UPROPERTY()
+	TObjectPtr<UUserWidget> UITrackers;
 	
+	UPROPERTY()
+	TObjectPtr<UUserWidget> UIGameOver;
+
 protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float deltaTime) override;
 
+	void PromptGameOverScreen(UWorld* world);
+	void OnTimeExpired();
+	
 	void SpawnRandomEnemy();
+
+	void BackToMainMenu();
 	
 private:
+	bool bGameModeActive = true;
+	
 	// The enemies that have been spawned in the world by this game mode
 	int32 EnemiesExisting = 0;
 
+	FTimerHandle TeleportBackToLobbyDelay;
+	
 	FEnemySpawnStruct GetRandomEnemyStructFromSpawnData();
 };
