@@ -114,6 +114,10 @@ void UEnemyHealth::OnStunned() {
 	if ( bIsStunned ) { return; }
 	bIsStunned = true;
 
+	if ( OnStunnedEvent.IsBound() ) {
+		OnStunnedEvent.Broadcast();
+	}
+	
 	UE_LOG(LogTemp, Log, TEXT("Begin stun!"));
 	
 	BeginRegenExpirationTime = UGameplayStatics::GetRealTimeSeconds( GetWorld() );
@@ -122,6 +126,10 @@ void UEnemyHealth::OnStunned() {
 void UEnemyHealth::StopStunned() {
 	if ( !bIsStunned ) { return; }
 	bIsStunned = false;
+
+	if ( OnStunEnded.IsBound() ) {
+		OnStunEnded.Broadcast();
+	}
 
 	UE_LOG(LogTemp, Log, TEXT("No longer stunned"));
 }

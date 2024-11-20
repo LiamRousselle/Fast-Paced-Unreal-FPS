@@ -8,6 +8,11 @@
 
 #define ENEMY_HEALTH_TICK_RATE					float(0.1)
 
+// Fired once the health has been stunned
+DECLARE_DYNAMIC_MULTICAST_DELEGATE( FOnStunned );
+// Fired once the health has been un-stunned
+DECLARE_DYNAMIC_MULTICAST_DELEGATE( FOnStunEnded );
+
 class AGloryKillFacade;
 class ACharacterController;
 
@@ -29,11 +34,18 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
 	TSubclassOf<AGloryKillFacade> GloryKillFacadeReference;
+
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnStunned OnStunnedEvent;
+	UPROPERTY(BlueprintAssignable, Category = "Events")
+	FOnStunEnded OnStunEnded;
 	
 public:
 	float RegenHealth = MaxHealth;
-	
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Cache")
 	bool bIsStunned = false;
+	
 	bool bIsDead = false;
 	
 public:
