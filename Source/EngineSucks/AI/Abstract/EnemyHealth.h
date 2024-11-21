@@ -53,7 +53,7 @@ public:
 	virtual void HealthTick();
 	
 	void TakeDamage(float damage);
-	void TryPerformGloryKill(ACharacterController* characterController);
+	bool TryPerformGloryKill(ACharacterController* characterController);
 
 protected:
 	FTimerHandle TickTimerHandle;

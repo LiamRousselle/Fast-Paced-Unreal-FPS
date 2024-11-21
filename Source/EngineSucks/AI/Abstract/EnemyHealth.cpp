@@ -56,19 +56,19 @@ void UEnemyHealth::TakeDamage(float damage) {
 	}
 }
 
-void UEnemyHealth::TryPerformGloryKill(ACharacterController* characterController) {
+bool UEnemyHealth::TryPerformGloryKill(ACharacterController* characterController) {
 	UWorld* world = GetWorld();
-	if ( !IsValid( world ) ) { return; }
+	if ( !IsValid( world ) ) { return false; }
 
 	APlayerController* localPlayerController = world->GetFirstPlayerController();
 	if ( !IsValid( localPlayerController ) ) {
 		UE_LOG(LogTemp, Error, TEXT("Cannot perform glory kill, no local player controller!"));
-		return;
+		return false;
 	}
 	
 	if ( !bIsStunned ) {
 		UE_LOG(LogTemp, Warning, TEXT("Cannot perform glory kill, enemy not stunned yet."));
-		return;
+		return false;
 	}
 	
 	UE_LOG(LogTemp, Log, TEXT("Performing glory kill"));
@@ -108,6 +108,8 @@ void UEnemyHealth::TryPerformGloryKill(ACharacterController* characterController
 	} else {
 		UE_LOG(LogTemp, Error, TEXT("%s is missing reference to GloryKillFacade blueprint."), *GetOwner()->GetName());
 	}
+
+	return true;
 }
 
 void UEnemyHealth::OnStunned() {
@@ -145,7 +147,7 @@ void UEnemyHealth::OnGloryKillFinished() {
 	}
 	
 	localPlayerController->SetViewTargetWithBlend( localPlayerController->GetPawn(), 0.5f, VTBlend_Cubic );
-
+	
 	if ( IsValid( ActiveGloryKillFacade.Get() ) ) {
 		ActiveGloryKillFacade.Get()->SetActorHiddenInGame( true );
 	}

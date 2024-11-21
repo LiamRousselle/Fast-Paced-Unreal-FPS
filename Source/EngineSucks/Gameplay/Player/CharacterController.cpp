@@ -9,6 +9,7 @@
 #include "EngineSucks/AI/Abstract/EnemyHealth.h"
 #include "EngineSucks/Gameplay/Weapons/Shotgun.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 ACharacterController::ACharacterController()
 {
@@ -179,25 +180,42 @@ void ACharacterController::PerformGloryKill() {
 	
 	if ( !IsValid(CameraController) ) { return; }
 
-	FVector cameraOrigin = CameraController->GetComponentLocation();
-	FVector rayEndLocation = cameraOrigin + CameraController->GetForwardVector() * 350.f;
+	APlayerController* localPlayerController = Cast<APlayerController>(GetController());
+	if ( !IsValid( localPlayerController ) ) { return; }
 	
-	// Cast a ray out from the front of the camera
-	// If we hit something check if what we hit was a enemy
-	// If so perform a glory kill on that enemy
-	FHitResult rayHitResult;
-	if ( world->LineTraceSingleByChannel( rayHitResult, cameraOrigin, rayEndLocation, ECC_Visibility ) ) {
-		if ( !IsValid( rayHitResult.GetActor() ) ) { return; }
+	FVector cameraOrigin = CameraController->GetComponentLocation();
 
-		ABaseEnemy* enemy = Cast<ABaseEnemy>( rayHitResult.GetActor() );
-		if ( IsValid( enemy ) ) {
-			enemy->Health->TryPerformGloryKill( this );
+	TArray<ABaseEnemy*> enemiesOnScreen;
+
+	// I know this is unoptimized
+	// but... this is better for the player.
+	// first iterate through all actors inside of the world
+	// every actor which is a classof ABaseEnemy shall go through some edge cases
+	// if all edge cases are met, then add that enemy to the enemiesOnScreen array
+	for ( TObjectIterator<ABaseEnemy> iterator; iterator; ++iterator ) {
+		ABaseEnemy* enemy = *iterator;
+		if ( enemy != nullptr ) {
+			if ( !IsValid( enemy->Health ) ) { continue; }
+			
+			FVector enemyWorldPosition = enemy->GetActorLocation();
+			float distanceFromPlayer = FVector::Distance( enemyWorldPosition, enemy->GetActorLocation() );
+			if ( distanceFromPlayer > 100.f ) {
+				continue;
+			}
+			
+			FVector2D screenPosition;
+			bool onScreen = UGameplayStatics::ProjectWorldToScreen( localPlayerController, enemyWorldPosition, screenPosition );
+			if ( onScreen ) {
+				enemiesOnScreen.Add( enemy );
+			}
 		}
-		
-		DrawDebugLine(world, cameraOrigin, rayHitResult.Location, FColor::Green, false, 1.f);
-		DrawDebugSphere(world, rayHitResult.Location, 5.f, 8, FColor::Green, false, 1.f);
 	}
-	else {
-		DrawDebugLine(world, cameraOrigin, rayEndLocation, FColor::Red, false, 1.f);
+	
+	// go through all enemies on screen, the first enemy which can be glory killed shall be glory killed
+	for ( ABaseEnemy* enemy : enemiesOnScreen ) {
+		bool success = enemy->Health->TryPerformGloryKill( this );
+		if ( success ) {
+			break;
+		}
 	}
 }
