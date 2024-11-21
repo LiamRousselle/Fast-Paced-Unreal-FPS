@@ -6,6 +6,8 @@
 #include "EngineSucks/AI/Abstract/BaseEnemy.h"
 #include "RangedEnemy.generated.h"
 
+class ARangedEnemyProjectile;
+
 enum RangedEnemyStateFlags {
 	k_None,					// This is the default state which the enemy will spawn as
 
@@ -21,6 +23,10 @@ class ENGINESUCKS_API ARangedEnemy : public ABaseEnemy {
 public:
 	ARangedEnemy();
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "References")
+	TSubclassOf<ARangedEnemyProjectile> ProjectileClassReference;
+	
+public:
 	RangedEnemyStateFlags StateFlag = k_None;
 	RangedEnemyStateFlags PreviousStateFlag = StateFlag;
 	
@@ -31,7 +37,9 @@ protected:
 	virtual void ThrottledTick() override;
 
 private:
+	void PerformAttack();
+	
 	void TickStatePassive(float deltaTime);
-
-	float AttackExpirationDate = -1.f;
+	
+	float AttackExpirationTime = -1.f;
 };

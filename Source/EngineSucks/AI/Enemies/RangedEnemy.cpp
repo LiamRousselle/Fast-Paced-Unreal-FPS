@@ -42,6 +42,9 @@ void ARangedEnemy::ThrottledTick() {
 		return;
 	}
 
+	// Slowly tick down the attack expiration time
+	AttackExpirationTime = FMath::Max( AttackExpirationTime - deltaTime, 0.f );
+	
 	// As long as we're not stunned we can determine how
 	// the ranged enemy is going to behave
 	if ( !Health->bIsStunned ) {
@@ -67,6 +70,10 @@ void ARangedEnemy::ThrottledTick() {
 	PreviousStateFlag = StateFlag;
 }
 
+void ARangedEnemy::PerformAttack() {
+	UE_LOG( LogTemp, Log, TEXT("Attacking!") );
+}
+
 void ARangedEnemy::TickStatePassive(float deltaTime) {
 	// If we changed states reset the waypoint
 	if ( StateFlag != PreviousStateFlag ) {
@@ -90,5 +97,11 @@ void ARangedEnemy::TickStatePassive(float deltaTime) {
 	if ( FVector::Distance(waypointLocation, GetActorLocation()) <= 50.f ) {
 		// If so change waypoints
 		SetTargetWaypoint( AICacheSystem.Get()->GetRandomAvailableWaypoint() );
+	}
+
+	// Attack slowly
+	if ( AttackExpirationTime == 0.f ) {
+		AttackExpirationTime = 0.6f;
+		PerformAttack();
 	}
 }
