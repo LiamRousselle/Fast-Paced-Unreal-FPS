@@ -82,6 +82,8 @@ void AViewmodel::Show() {
 }
 
 void AViewmodel::Hide() {
+	PreviousMeshCameraRotation = FRotator(0, 0, 90);
+	
 	SetActorHiddenInGame( true );
 	bViewmodelShown = false;
 }
@@ -99,6 +101,21 @@ void AViewmodel::Tick(float deltaTime) {
 		SetActorHiddenInGame( false );
 		Super::Tick( deltaTime );
 
+		// Make camera rotate along with the skeletal meshes camera bone (if it has one)
+		if ( IsValid( Mesh.Get() ) ) {
+			if ( IsValid( LocalCharacterController.Get() ) ) {
+				FTransform worldSocketTransform = Mesh.Get()->GetSocketTransform( "Camera" );
+				FTransform componentTransform = Mesh.Get()->GetComponentTransform();
+				FTransform localSocketTransform = worldSocketTransform.GetRelativeTransform( componentTransform );
+
+				FRotator cameraRelativeRotation = localSocketTransform.GetRotation().Rotator();
+				FRotator rotationDifference = cameraRelativeRotation - PreviousMeshCameraRotation;
+				PreviousMeshCameraRotation = cameraRelativeRotation;
+
+				LocalCharacterController.Get()->GetCameraController()->AddRelativeRotation( rotationDifference * 3.5f );
+			}
+ 		}
+		
 		// Update the sway spring
 		if ( IsValid( SwaySpring.Get() ) ) {
 			SwaySpring.Get()->Update( deltaTime );

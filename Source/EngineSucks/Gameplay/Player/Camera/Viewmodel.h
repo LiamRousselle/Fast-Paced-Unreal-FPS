@@ -56,6 +56,7 @@ private:
 
 private:
 	FRotator CurrentMoveTiltRotation = FRotator();
+	FRotator PreviousMeshCameraRotation = FRotator(0, 0, 90);
 	
 	bool bViewmodelShown = false;
 	bool bPreviouslyLanded = true;
