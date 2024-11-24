@@ -145,13 +145,18 @@ void UEnemyHealth::OnGloryKillFinished() {
 		UE_LOG(LogTemp, Error, TEXT("Cannot perform glory kill, no local player controller!"));
 		return;
 	}
+	// show the local players character again
+	APawn* localPawn = localPlayerController->GetPawn();
+	if ( IsValid( localPawn ) ) {
+		localPawn->SetActorHiddenInGame( false );
+	}
 	
 	localPlayerController->SetViewTargetWithBlend( localPlayerController->GetPawn(), 0.5f, VTBlend_Cubic );
 	
 	if ( IsValid( ActiveGloryKillFacade.Get() ) ) {
 		ActiveGloryKillFacade.Get()->SetActorHiddenInGame( true );
 	}
-
+	
 	world->GetTimerManager().SetTimer(
 		DeathTimerDelay,
 		this,

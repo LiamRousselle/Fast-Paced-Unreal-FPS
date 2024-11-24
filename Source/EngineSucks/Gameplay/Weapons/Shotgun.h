@@ -7,7 +7,7 @@
 #include "Shotgun.generated.h"
 
 
-class AViewmodel;
+class AShotgunViewmodel;
 class ACharacterController;
 
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent), Blueprintable)
@@ -18,7 +18,7 @@ public:
 	UShotgun();
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Components")
-	TSubclassOf<AViewmodel> ShotgunViewmodelReference;
+	TSubclassOf<AShotgunViewmodel> ShotgunViewmodelReference;
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Damage")
 	float Damage = 12.5f;
@@ -43,7 +43,7 @@ private:
 	TObjectPtr<ACharacterController> LocalCharacterController = nullptr;
 
 	UPROPERTY()
-	TObjectPtr<AViewmodel> ShotgunViewmodel;
+	TObjectPtr<AShotgunViewmodel> ShotgunViewmodel;
 	
 	float FireExpirationTime = -1.f;
 

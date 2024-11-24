@@ -11,17 +11,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c908f06f-cbf8-4dca-b662-17f80e32af94" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/Camera/AbstractViewmodels/ShotgunViewmodel.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/Camera/AbstractViewmodels/ShotgunViewmodel.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EngineSucks/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Enemies/BP_RangedEnemy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Enemies/BP_RangedEnemy.uasset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Gameplay/BP_DemoGameMode.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Gameplay/BP_DemoGameMode.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Viewmodels/BP_VM_ShotgunLegacy.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Viewmodels/BP_VM_ShotgunLegacy.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Prototyping/PlayerControllerPrototype.umap" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Levels/Release/GameDemo.umap" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Materials/Colours/Red.uasset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemies/RangedEnemy.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Enemies/RangedEnemy.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Instances/RangedEnemyProjectile.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Instances/RangedEnemyProjectile.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/AI/Instances/RangedEnemyProjectile.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/AI/Instances/RangedEnemyProjectile.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/CharacterController.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/UserInterface/UI_DemoTrackers.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/UserInterface/UI_DemoTrackers.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/Camera/Viewmodel.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Player/Camera/Viewmodel.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/EngineSucks/Gameplay/Weapons/Shotgun.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,27 +48,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C++ Project.EngineSucks.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C++&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C++ Project.EngineSucks.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ToolWindowUnrealLink.ShowToolbar": "false",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.C++",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\Liam\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\Liam\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\Liam\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\Liam\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Liam\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\Liam\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="C++ Project.EngineSucks">
     <configuration name="EngineSucks" type="CppProject" factoryName="C++ Project">
       <configuration_1>
@@ -487,7 +487,7 @@
       <workItem from="1732225075441" duration="2009000" />
       <workItem from="1732315793422" duration="4749000" />
       <workItem from="1732407196162" duration="1235000" />
-      <workItem from="1732481230632" duration="419000" />
+      <workItem from="1732481230632" duration="1788000" />
     </task>
     <task id="LOCAL-00001" summary="Pray nothing breaks">
       <option name="closed" value="true" />

@@ -6,6 +6,7 @@
 #include "EngineSucks/AI/Abstract/EnemyHealth.h"
 #include "EngineSucks/Gameplay/Player/CharacterController.h"
 #include "EngineSucks/Gameplay/Player/Camera/Viewmodel.h"
+#include "EngineSucks/Gameplay/Player/Camera/AbstractViewmodels/ShotgunViewmodel.h"
 #include "Kismet/GameplayStatics.h"
 
 UShotgun::UShotgun() {
@@ -42,7 +43,7 @@ void UShotgun::BeginPlay() {
 	// Create the shotgun viewmodel
 	UWorld* world = GetWorld();
 	if ( IsValid(ShotgunViewmodelReference.Get()) && IsValid(world) ) {
-		ShotgunViewmodel = world->SpawnActor<AViewmodel>( ShotgunViewmodelReference.Get() );
+		ShotgunViewmodel = world->SpawnActor<AShotgunViewmodel>( ShotgunViewmodelReference.Get() );
 		if ( IsValid( ShotgunViewmodel.Get() ) ) {
 			ShotgunViewmodel->Show();
 			UE_LOG(LogTemp, Log, TEXT("Created shotgun viewmodel successfully"));
@@ -128,4 +129,9 @@ void UShotgun::Fire(UWorld* world) {
 	FireExpirationTime = UGameplayStatics::GetRealTimeSeconds( world ) + FireRateSeconds;
 	
 	CastAllBullets(world);
+
+	// Make the shotgun viewmodel play the fire animation
+	if ( IsValid(ShotgunViewmodel.Get()) ) {
+		ShotgunViewmodel.Get()->OnFired();
+	}
 }

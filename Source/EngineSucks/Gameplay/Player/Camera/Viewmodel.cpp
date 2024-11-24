@@ -73,7 +73,7 @@ void AViewmodel::Show() {
 			// Success!
 			LocalCharacterController = localCharacterController;
 
-			SetActorHiddenInGame(false); // Only un-hide the viewmodel once we've actually found the local character controller
+			SetActorHiddenInGame( false ); // Only un-hide the viewmodel once we've actually found the local character controller
 		}
 		else {
 			UE_LOG(LogTemp, Error, TEXT("AViewmodel::Show(); Failed to cast from APawn to ACharacterController (localCharacterController)"));
@@ -82,13 +82,22 @@ void AViewmodel::Show() {
 }
 
 void AViewmodel::Hide() {
-	SetActorHiddenInGame(true);
+	SetActorHiddenInGame( true );
 	bViewmodelShown = false;
 }
 
 void AViewmodel::Tick(float deltaTime) {
+	if ( !IsValid( LocalCharacterController.Get() ) ) {
+		return;
+	}
+	if ( LocalCharacterController.Get()->IsHidden() ) {
+		SetActorHiddenInGame( true );
+		return;
+	}
+	
 	if ( bViewmodelShown ) {
-		Super::Tick(deltaTime);
+		SetActorHiddenInGame( false );
+		Super::Tick( deltaTime );
 
 		// Update the sway spring
 		if ( IsValid( SwaySpring.Get() ) ) {
