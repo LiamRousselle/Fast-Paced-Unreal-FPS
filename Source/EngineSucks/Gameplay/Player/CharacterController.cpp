@@ -188,7 +188,7 @@ void ACharacterController::PerformGloryKill() {
 	TArray<ABaseEnemy*> enemiesOnScreen;
 
 	// I know this is unoptimized
-	// but... this is better for the player.
+	// but... this is better for the player. (and im too lazy to think of a better solution)
 	// first iterate through all actors inside of the world
 	// every actor which is a classof ABaseEnemy shall go through some edge cases
 	// if all edge cases are met, then add that enemy to the enemiesOnScreen array
@@ -215,6 +215,7 @@ void ACharacterController::PerformGloryKill() {
 	for ( ABaseEnemy* enemy : enemiesOnScreen ) {
 		bool success = enemy->Health->TryPerformGloryKill( this );
 		if ( success ) {
+			GloryKillTimestamp = world->GetTimeSeconds() + 1.f;
 			break;
 		}
 	}

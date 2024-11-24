@@ -30,15 +30,10 @@ void ARangedEnemyProjectile::OnHit(UPrimitiveComponent* hitComp, AActor* other, 
 )
 {
 	// Destroy when hit, and damage, but right now, do shit haha
-	if (other != nullptr && other != this && other != nullptr)
-	{
-		// TODO!
-		// Implement damaging!!!
-		
-		if (hitComp->GetOwner() && hitComp->GetOwner()->GetClass() != ARangedEnemy::StaticClass())
-		{
+	if ( IsValid( other ) && other != this ) {
+		UE_LOG(LogTemp, Log, TEXT("%s"), *hitComp->GetOwner()->GetName());
+		if ( hitComp->GetOwner() && other->GetClass() != ARangedEnemy::StaticClass() ) {
 			Destroy();
 		}
 	}
 }
-

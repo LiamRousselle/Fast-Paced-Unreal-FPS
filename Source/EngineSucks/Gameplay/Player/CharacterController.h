@@ -34,6 +34,8 @@ public:
 public:
 	FVector2D AnalogMoveDirection = FVector2D();
 	FVector2D AnalogCameraRotation = FVector2D();
+
+	float GloryKillTimestamp = -1.f;
 	
 public:
 	virtual void Tick(float deltaTime) override;

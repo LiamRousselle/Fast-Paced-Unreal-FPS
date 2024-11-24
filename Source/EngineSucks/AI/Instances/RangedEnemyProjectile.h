@@ -18,7 +18,7 @@ public:
 
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* hitComp, AActor* other, UPrimitiveComponent* otherComp, FVector normalImpulse, const FHitResult& result);
-	
+
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category="RangedEnemyProjectile")
 	USphereComponent* CollisionComponent = nullptr;

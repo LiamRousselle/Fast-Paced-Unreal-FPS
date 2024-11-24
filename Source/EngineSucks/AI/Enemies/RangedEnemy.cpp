@@ -4,7 +4,9 @@
 #include "RangedEnemy.h"
 
 #include "EngineSucks/AI/Abstract/EnemyHealth.h"
+#include "EngineSucks/AI/Instances/RangedEnemyProjectile.h"
 #include "EngineSucks/AI/Systems/AICacheSystem.h"
+#include "EngineSucks/Gameplay/Player/CharacterController.h"
 #include "EngineSucks/Volumes/EnemyWaypoint.h"
 
 ARangedEnemy::ARangedEnemy() {
@@ -29,10 +31,23 @@ void ARangedEnemy::ThrottledTick() {
 	float deltaTime = k_ThrottledTickRate;
 	Super::ThrottledTick();
 
+	UWorld* world = GetWorld();
+	if ( !IsValid( world ) ) { return; }
+	
 	// Try and index the AI cache system if it's not already indexed
 	if ( !IsValid( AICacheSystem.Get() ) ) {
 		IndexAICacheSystem();
 		return;
+	}
+
+	// Make sure we have the player and that they're not glory killing
+	APawn* localPawn = AICacheSystem.Get()->GetLocalPlayerPawn();
+	if ( IsValid( localPawn ) ) {
+		ACharacterController* localCharacterController = Cast<ACharacterController>( localPawn );
+		if ( IsValid( localCharacterController ) && localCharacterController->GloryKillTimestamp > world->GetTimeSeconds() ) {
+			StopMovement();
+			return;
+		}
 	}
 	
 	// Make sure the health component exists, otherwise
@@ -48,7 +63,7 @@ void ARangedEnemy::ThrottledTick() {
 	// As long as we're not stunned we can determine how
 	// the ranged enemy is going to behave
 	if ( !Health->bIsStunned ) {
-		switch (StateFlag) {
+		switch ( StateFlag ) {
 			default:
 				StateFlag = k_None;
 				break;
@@ -71,7 +86,19 @@ void ARangedEnemy::ThrottledTick() {
 }
 
 void ARangedEnemy::PerformAttack() {
-	UE_LOG( LogTemp, Log, TEXT("Attacking!") );
+	UWorld* world = GetWorld();
+	if ( !IsValid( world ) ) { return; }
+	
+	if ( ProjectileClassReference == nullptr ) {
+		UE_LOG(LogTemp, Error, TEXT("Attempt to index nullptr with ProjectileClassReference (not valid member)"));
+		return;
+	}
+	
+	APawn* localPawn = AICacheSystem.Get()->GetLocalPlayerPawn();
+	if ( !IsValid( localPawn ) ) { return; } 
+	
+	FVector projectileDirection = ( localPawn->GetActorLocation() - GetActorLocation()  ).GetSafeNormal();
+	world->SpawnActor<ARangedEnemyProjectile>( ProjectileClassReference.Get(), GetActorLocation(), projectileDirection.ToOrientationRotator() );
 }
 
 void ARangedEnemy::TickStatePassive(float deltaTime) {
@@ -101,7 +128,7 @@ void ARangedEnemy::TickStatePassive(float deltaTime) {
 
 	// Attack slowly
 	if ( AttackExpirationTime == 0.f ) {
-		AttackExpirationTime = 0.6f;
+		AttackExpirationTime = 1.25f;
 		PerformAttack();
 	}
 }
